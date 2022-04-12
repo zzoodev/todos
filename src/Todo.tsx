@@ -1,14 +1,14 @@
 import { ITodo } from "./atom";
 import styled from "styled-components";
-import { CategoryEnum, TodosAtom } from "./atom";
-import { useSetRecoilState } from "recoil";
+import { TodosAtom, AllCategoryAtom } from "./atom";
+import { useSetRecoilState, useRecoilValue } from "recoil";
 
 const Li = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 5px;
-  width: 90%;
+  width: 95%;
 `;
 const Btns = styled.div`
   display: flex;
@@ -18,6 +18,7 @@ const Btns = styled.div`
 `;
 function Todo({ text, category, id }: ITodo) {
   const setTodos = useSetRecoilState(TodosAtom);
+  const allCategory = useRecoilValue(AllCategoryAtom);
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const changed = event.currentTarget.innerText;
@@ -35,7 +36,7 @@ function Todo({ text, category, id }: ITodo) {
     <Li>
       <span>{text}</span>
       <Btns>
-        {category !== CategoryEnum.TO_DO && (
+        {/* {category !== CategoryEnum.TO_DO && (
           <button onClick={onClick}>TO_DO</button>
         )}
         {category !== CategoryEnum.DOING && (
@@ -43,7 +44,16 @@ function Todo({ text, category, id }: ITodo) {
         )}
         {category !== CategoryEnum.DONE && (
           <button onClick={onClick}>DONE</button>
-        )}
+        )} */}
+        {allCategory.map((cate, index) => {
+          return (
+            cate !== category && (
+              <button key={index} onClick={onClick}>
+                {cate}
+              </button>
+            )
+          );
+        })}
       </Btns>
     </Li>
   );
