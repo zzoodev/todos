@@ -22,10 +22,14 @@ function App() {
   const setCategory = useSetRecoilState(CategoryAtom);
 
   useEffect(() => {
+    if (getToDos === null || getCategories === null || getCategory === null) {
+      return;
+    }
     setTodos(getToDos);
     setAllCategory(getCategories);
     setCategory(getCategory);
   }, []);
+
   return (
     <Wrapper>
       <TodoList />
