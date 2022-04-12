@@ -23,7 +23,7 @@ function Todo({ text, category, id }: ITodo) {
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const changed = event.currentTarget.innerText;
     setTodos((oldTodos) => {
-      const targetIndex = oldTodos.findIndex((todo) => todo.id == id);
+      const targetIndex = oldTodos.findIndex((todo) => todo.id === id);
       const newTodo = { text, category: changed as any, id };
       return [
         ...oldTodos.slice(0, targetIndex),
@@ -36,15 +36,6 @@ function Todo({ text, category, id }: ITodo) {
     <Li>
       <span>{text}</span>
       <Btns>
-        {/* {category !== CategoryEnum.TO_DO && (
-          <button onClick={onClick}>TO_DO</button>
-        )}
-        {category !== CategoryEnum.DOING && (
-          <button onClick={onClick}>DOING</button>
-        )}
-        {category !== CategoryEnum.DONE && (
-          <button onClick={onClick}>DONE</button>
-        )} */}
         {allCategory.map((cate, index) => {
           return (
             cate !== category && (

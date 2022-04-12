@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { CategoryAtom, TodosAtom } from "./atom";
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 const Form = styled.form`
   display: flex;
@@ -24,16 +25,11 @@ interface IForm {
 }
 
 function CreateTodo() {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
 
   const category = useRecoilValue(CategoryAtom);
-  const setToDos = useSetRecoilState(TodosAtom);
+
+  const [toDos, setToDos] = useRecoilState(TodosAtom);
 
   const onSubmit = handleSubmit<IForm>(({ toDo }) => {
     setToDos((oldTodo) => [
@@ -42,6 +38,11 @@ function CreateTodo() {
     ]);
     setValue("toDo", "");
   });
+
+  useEffect(() => {
+    let toDoJson = JSON.stringify(toDos);
+    localStorage.setItem("toDos", toDoJson);
+  }, [toDos]);
 
   return (
     <Form onSubmit={onSubmit}>

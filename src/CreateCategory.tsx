@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { AllCategoryAtom } from "./atom";
+import { useEffect } from "react";
 
 const Form = styled.form`
   display: flex;
@@ -14,18 +15,17 @@ const Form = styled.form`
 `;
 
 function CreateCategory() {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm();
-  const newCategories = useSetRecoilState(AllCategoryAtom);
+  const { register, handleSubmit, setValue } = useForm();
+  const [allCategory, setAllCategory] = useRecoilState(AllCategoryAtom);
   const onSubmit = handleSubmit(({ categoryName }) => {
-    newCategories((oldCategory) => [categoryName, ...oldCategory]);
+    setAllCategory((oldCategory) => [categoryName, ...oldCategory]);
     setValue("categoryName", "");
   });
+
+  useEffect(() => {
+    let categoryJson = JSON.stringify(allCategory);
+    localStorage.setItem("allCategory", categoryJson);
+  }, [allCategory]);
 
   return (
     <Form onSubmit={onSubmit}>

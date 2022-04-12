@@ -1,7 +1,8 @@
-import React from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import TodoList from "./TodoList";
-import { RecoilRoot } from "recoil";
+import { useSetRecoilState } from "recoil";
+import { AllCategoryAtom, TodosAtom, CategoryAtom } from "./atom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,13 +12,24 @@ const Wrapper = styled.div`
   height: 100vh;
 `;
 
+const getToDos = JSON.parse(localStorage.getItem("toDos")!);
+const getCategories = JSON.parse(localStorage.getItem("allCategory")!);
+const getCategory = JSON.parse(localStorage.getItem("currentCategory")!);
+
 function App() {
+  const setTodos = useSetRecoilState(TodosAtom);
+  const setAllCategory = useSetRecoilState(AllCategoryAtom);
+  const setCategory = useSetRecoilState(CategoryAtom);
+
+  useEffect(() => {
+    setTodos(getToDos);
+    setAllCategory(getCategories);
+    setCategory(getCategory);
+  }, []);
   return (
-    <RecoilRoot>
-      <Wrapper>
-        <TodoList />
-      </Wrapper>
-    </RecoilRoot>
+    <Wrapper>
+      <TodoList />
+    </Wrapper>
   );
 }
 

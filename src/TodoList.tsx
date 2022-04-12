@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import CreateTodo from "./CreateTodo";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { CategoryAtom, TodosAtom, AllCategoryAtom, TodoSelector } from "./atom";
+import { CategoryAtom, AllCategoryAtom, TodoSelector } from "./atom";
 import Todo from "./Todo";
 import NewCategory from "./CreateCategory";
 
@@ -37,8 +37,12 @@ function TodoList() {
     setCategory(selected as any);
   };
   const ToDos = useRecoilValue(TodoSelector);
-
   const allCategory = useRecoilValue(AllCategoryAtom);
+
+  useEffect(() => {
+    let currentCategory = JSON.stringify(category);
+    localStorage.setItem("currentCategory", currentCategory);
+  }, [category]);
 
   return (
     <Main>
