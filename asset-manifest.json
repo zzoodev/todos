@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/https//zzoocoder.github.io/todos/static/js/main.94dec1e4.js",
-    "index.html": "/https//zzoocoder.github.io/todos/index.html",
-    "main.94dec1e4.js.map": "/https//zzoocoder.github.io/todos/static/js/main.94dec1e4.js.map"
+    "main.js": "/todos/static/js/main.b957a797.js",
+    "index.html": "/todos/index.html",
+    "main.b957a797.js.map": "/todos/static/js/main.b957a797.js.map"
   },
   "entrypoints": [
-    "static/js/main.94dec1e4.js"
+    "static/js/main.b957a797.js"
   ]
 }
